@@ -1,0 +1,2175 @@
+Скрипты, расположенные в папке Module14\01_os_info:
+
+import platform
+import sys
+
+info = 'OS info is:\n{}\n\nPython version is:\n{}\n\nPlatform architecture is:\n{}'.format(
+    platform.uname(),
+    sys.version,
+    platform.architecture(),
+)
+print(info)
+
+with open('os_info.txt', 'w', encoding='utf8') as file:
+    file.write(info)
+
+****************************************
+Скрипты, расположенные в папке Module14\02_sum_and_dif:
+
+# count sum of digits
+def sum_of_digits(n):
+	summ = 0
+	while n > 0:
+		summ += n % 10
+		n //= 10
+	return summ
+
+
+# count number of digits
+def number_of_digits(n):
+	count = 0
+	while n > 0:
+		count += 1
+		n //= 10
+	return count
+
+
+# check if num is int
+try:
+	num = int(input("Введите число: "))
+except ValueError:
+	print("Введено не целое число!")
+	exit()
+
+sum_of_digs = sum_of_digits(num)
+num_of_digs = number_of_digits(num)
+diff = sum_of_digs - num_of_digs
+
+print(f"Сумма чисел: {sum_of_digs}")
+print(f"Количество цифр в числе: {num_of_digs}")
+print(f"Разность суммы и количества цифр: {diff}")
+
+****************************************
+Скрипты, расположенные в папке Module14\03_least_divisor:
+
+def the_smallest_divisor(a):
+	if a == 1:
+		print("Число 1 не имеет другого делителя, отличного от единицы!")
+		exit()
+	for i in range(2, a):
+		if a % i == 0:
+			return i
+	return a
+
+
+# check if num is int
+try:
+	num = int(input("Введите число: "))
+except ValueError:
+	print("Введено не целое число!")
+	exit()
+
+print("Наименьший делитель, отличный от единицы:", the_smallest_divisor(num))
+
+****************************************
+Скрипты, расположенные в папке Module15\01_list_gen:
+
+# create list of odd numbers from 1 to N
+number = int(input('Введите число: '))
+odd_numbers = []
+for i in range(1, number + 1):
+	if i % 2 == 1:
+		odd_numbers.append(i)
+
+print(f'Список из нечётных чисел от 1 до {number}: {odd_numbers}')
+****************************************
+Скрипты, расположенные в папке Module15\02_tournament:
+
+# There is a list of 8 names: [Артемий, Борис, Влад, Гоша, Дима, Евгений, Женя, Захар]
+# Show only names with even indexes.
+names = ['Артемий', 'Борис', 'Влад', 'Гоша', 'Дима', 'Евгений', 'Женя', 'Захар']
+even_index_names = []
+for i in range(len(names)):
+	if i % 2 == 0:
+		even_index_names.append(names[i])
+print(even_index_names)
+
+****************************************
+Скрипты, расположенные в папке Module15\03_videocards:
+
+# решение задачи с учетом пройденных уроков (без функций max() и т.д.)
+old_list = [3070, 2060, 3090, 3070, 3090]
+new_list = []
+# get max value from old_list
+max_num = old_list[0]
+for vc_num in old_list:
+	if vc_num > max_num:
+		max_num = vc_num
+# print("Максимальная видеокарта: ", max_num)
+
+# append all numbers except not max from old_list to new_list
+for vc_num in old_list:
+	if vc_num != max_num:
+		new_list.append(vc_num)
+
+print("Старый список видеокарт: ", old_list)
+print("Новый список видеокарт: ", new_list)
+
+****************************************
+Скрипты, расположенные в папке Module15\04_movie:
+
+films = ['Крепкий орешек', 'Назад в будущее', 'Таксист',
+         'Леон', 'Богемская рапсодия', 'Город грехов',
+         'Мементо', 'Отступники', 'Деревня']
+
+# input number of films
+num = int(input('Сколько фильмов хотите добавить? '))
+fav_films = []
+# input num of films to add
+for i in range(num):
+    film = input('Введите название фильма: ')
+    if film not in films:
+        print('Ошибка: фильма', film, 'у нас нет :(')
+    else:
+        fav_films.append(film)
+
+print('Ваш список любимых фильмов: ', ', '.join(fav_films))
+
+****************************************
+Скрипты, расположенные в папке Module15\05_containers:
+
+# input number of containers
+containers_num = int(input("Количество контейнеров: "))
+# input weights of containers to the list
+weights = []
+count = 1
+while len(weights) < int(containers_num):
+	weight = int(input("Введите вес контейнера: "))
+	if weight <= 200:
+		weights.append(weight)
+	else:
+		print("Вес не должен превышать 200 кг")
+
+# input weight of new container
+new_container_weight = int(input("Введите вес нового контейнера: "))
+new_container_num = None
+while new_container_weight > 200:
+	print("Вес не должен превышать 200 кг")
+	new_container_weight = int(input("Введите вес нового контейнера: "))
+
+for i in range(len(weights)):
+	if new_container_weight > weights[i]:
+		new_container_num = i + 1
+		break
+	else:
+		new_container_num = i + 2
+
+print("Номер, который получит новый контейнер: ", new_container_num)
+
+****************************************
+Скрипты, расположенные в папке Module15\06_running_nums:
+
+# There is a list of numbers. User inputs a number and program shifts numbers positions
+# in the list to the right direction according to the number.
+# For example:
+# [1, 2, 3, 4, 5] -> 1 -> [2, 3, 4, 5, 1]
+# [1, 2, 3, 4, 5] -> 2 -> [4, 5, 1, 2, 3]
+# [1, 2, 3, 4, 5] -> 3 -> [3, 4, 5, 1, 2]
+# [1, 2, 3, 4, 5] -> 4 -> [2, 3, 4, 5, 1]
+
+
+# [1, 4, -3, 0, 10] -> 3 -> [-3, 0, 10, 1, 4]
+# my_list = [1, 2, 3, 4, 5]
+my_list = [1, 4, -3, 0, 10]
+new_list = []
+shift_num = int(input("Сдвиг: "))
+for i in range(len(my_list)):
+	if shift_num <= len(my_list):
+		new_list.append(my_list[i - shift_num])
+	else:
+		new_list.append(my_list[i - shift_num % len(my_list)])
+
+print("Изначальный список:", my_list)
+print("Сдвинутый список:", new_list)
+
+
+****************************************
+Скрипты, расположенные в папке Module15\07_word_analysis_2:
+
+word_as_list = list(input("Введите слово: "))
+rev_word_as_list = word_as_list[::-1]
+# print(word_as_list)
+# print(rev_word_as_list)
+if word_as_list == rev_word_as_list:
+	print("Слово является палиндромом")
+else:
+	print("Слово не является палиндромом")
+
+
+
+
+****************************************
+Скрипты, расположенные в папке Module15\08_sort:
+
+# Дан список из N чисел.
+# Напишите программу, которая сортирует элементы списка по возрастанию и выводит их на экран.
+# Дополнительный список использовать нельзя.
+# Также нельзя использовать готовые функции sorted/min/max и метод sort.
+# # Постарайтесь придумать и написать как можно более эффективный алгоритм сортировки.
+# Пример:
+# Изначальный список: [1, 4, -3, 0, 10]
+# Отсортированный список: [-3, 0, 1, 4, 10]
+
+my_list = [1, 4, -3, 0, 10]
+print("Изначальный список:", my_list)
+
+for i in range(len(my_list)):
+	for j in range(i + 1, len(my_list)):
+		if my_list[i] > my_list[j]:
+			my_list[i], my_list[j] = my_list[j], my_list[i]
+
+print("Отсортированный список:", my_list)
+
+****************************************
+Скрипты, расположенные в папке Module15\09_reverse_analysis:
+
+# Задача 9. Обратный анализ чётных чисел
+# Контекст
+# Вы работаете в научной лаборатории, в ней проводятся эксперименты и записываются результаты
+# в виде списка целых чисел. Ваша задача — написать программу, которая поможет исследователям
+# выделить чётные числа из списка результатов экспериментов.
+# Они хотят анализировать эти числа в обратном порядке, чтобы исследовать особые закономерности,
+# связанные с чётными значениями.
+#
+# Задача
+# Напишите программу, которая считывает целые числа из списка и выводит из него
+# только чётные в обратном порядке. Создавать дополнительные списки нельзя.
+#
+# Ограничения
+# Нельзя использовать: метод reverse, функцию reversed, разворот при помощи среза (список[::-1]).
+
+# Советы
+# Вы можете управлять направлением перебора элементов в списке
+# (можете перебирать элементы с начала до конца, а можете начать с конца и двигаться к началу).
+# Это может стать основой решения задачи. Список является изменяемым типом данных,
+# значит вы можете изменять положение элементов внутри списка.
+# Это может стать основой ещё одного варианта решения задачи. Можете выбрать любой или решить
+# обоими способами! Обратите внимание: некоторые операции со списками создают их копии,
+# даже если вы не указываете на это явно. Простой пример, который это демонстрирует:
+# test = [1, 2, 3]
+# print(id(test)) # Здесь вы увидите один айди
+# test = test[::-1]
+# print(id(test)) # А здесь уже другой
+
+
+print("\nsolution #1", end='\n')
+my_list = [1, 12, 11, 2, 4, 13, 5, 6, 8, 9, 10]
+
+# solution #1
+for i in range(len(my_list) - 1, 0, -1):
+	if my_list[i] % 2 == 0:
+		print(my_list[i], end=', ')
+
+# solution #2
+print("\n\nsolution #2", end='\n')
+for i in range(len(my_list)):
+	if my_list[i] % 2 == 0:
+		print(my_list[-i], end=', ')
+
+
+****************************************
+Скрипты, расположенные в папке Module16\01_scary_code:
+
+# a = [1, 5, 3]
+# b = [1, 5, 1, 5]
+# c = [1, 3, 1, 5, 3, 3]
+# for i in b:
+#     a.append(i)
+# t = 0
+# for i in a:
+#     if i == 5:
+#         t += 1
+# print(t)
+# d = []
+# for i in a:
+#     if i != 5:
+#         d.append(i)
+# for i in c:
+#     d.append(i)
+# t = 0
+# for i in d:
+#     if i == 3:
+#         t += 1
+# print(t)
+# print(d)
+
+# переписать программу
+a = [1, 5, 3]
+b = [1, 5, 1, 5]
+c = [1, 3, 1, 5, 3, 3]
+a.extend(b)
+count_5 = a.count(5)
+print(f'Кол-во цифр 5 при первом объединении: {count_5}')
+
+for num in a:
+    if num == 5:
+        a.remove(num)
+
+a.extend(c)
+count_3 = a.count(3)
+print(f'Кол-во цифр 3 при втором объединении: {count_3}')
+print(f'Итоговый список: {a}')
+
+****************************************
+Скрипты, расположенные в папке Module16\02_unique_combination:
+
+# здесь писать код
+def merge_sorted_lists(lst1, lst2):
+	lst1.extend(lst2)
+	for elem in lst1:
+		if lst1.count(elem) > 1:
+			lst1.remove(elem)
+	return sorted(lst1)
+
+
+# Пример использования:
+list1 = [1, 3, 5, 7, 9]
+list2 = [2, 4, 5, 6, 8, 10]
+merged = merge_sorted_lists(list1, list2)
+print(merged)
+
+****************************************
+Скрипты, расположенные в папке Module16\03_details:
+
+shop = [['каретка', 1200], ['шатун', 1000], ['седло', 300],
+        ['педаль', 100], ['седло', 1500], ['рама', 12000],
+        ['обод', 2000], ['шатун', 200], ['седло', 2700]]
+
+# Пример:
+# Укажите название детали: седло
+# Количество делателей: 3
+# Общая стоимость: 4500
+part = input('Укажите название детали: ')
+total_cost = 0
+total_count = 0
+for i in range(len(shop)):
+    if part == shop[i][0]:
+        total_cost += shop[i][1]
+        total_count += 1
+print(f'Количество: {total_count}')
+print(f'Общая стоимость: {total_cost}')
+
+****************************************
+Скрипты, расположенные в папке Module16\04_party:
+
+# Дан изначальный список гостей — имена тех, кто пришёл к началу:
+# guests = [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘Катя’]
+# Напишите программу, которая спрашивает у пользователя, ушёл ли человек и пришёл ли новый гость.
+# Исходя из ответа, добавляет в список или удаляет из него нужное имя.
+# При этом гостей может быть не больше шести. Имена запрашиваются до тех пор,
+# пока пользователь не введёт сообщение «Пора спать».
+
+# Пример:
+# Сейчас на вечеринке 5 человек: [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘Катя’]
+# Гость пришёл или ушёл? пришёл
+# Имя гостя: Алекс
+# Привет, Алекс!
+#
+# Сейчас на вечеринке 6 человек: [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘Катя’, ‘Алекс’]
+# Гость пришёл или ушёл? пришёл
+# Имя гостя: Гоша
+# Прости, Гоша, но мест нет.
+#
+# Сейчас на вечеринке 6 человек: [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘Катя’, ‘Алекс’]
+# Гость пришёл или ушёл? ушёл
+# Имя гостя: Ваня
+# Пока, Ваня!
+#
+# Сейчас на вечеринке 5 человек: [‘Петя’, ‘Саша’, ‘Лиза’, ‘Катя’, ‘Алекс’]
+# Гость пришёл или ушёл? Пора спать
+# Вечеринка закончилась, все легли спать.
+def party(guests):
+	print('Сейчас на вечеринке', len(guests), 'человек:', guests)
+	while True:
+		choice = input('Гость пришёл или ушёл? ')
+		if choice.lower() in ['пришёл', 'пришел']:
+			if len(guests) < 6:
+				name = input('Имя гостя: ')
+				guests.append(name.capitalize())
+				print(f'Привет, {name.capitalize()}!')
+				print('Сейчас на вечеринке ', len(guests), ' человек: ', guests)
+			else:
+				print('Извините, мест нет.')
+				continue
+		elif choice.lower() in ['ушёл', 'ушел']:
+			name = input('Имя гостя: ')
+			if name.capitalize() not in guests:
+				print(
+					'Извините, гостя по имени', name.capitalize(), 'нет на вечеринке.\n',
+					"Список гостей:", guests
+				)
+				continue
+			else:
+				guests.remove(name.capitalize())
+				print(f'Пока, {name.capitalize()}!')
+				if len(guests) == 0:
+					print('Вечеринка закончилась, все гости ушли.')
+					break
+			print('Сейчас на вечеринке', len(guests), 'человек:', guests)
+		elif choice.lower() == 'пора спать':
+			print('Вечеринка закончилась, все легли спать.')
+			break
+
+
+party_guests = ['Петя', 'Ваня', 'Саша', 'Лиза', 'Катя']
+party(party_guests)
+
+****************************************
+Скрипты, расположенные в папке Module16\05_songs:
+
+violator_songs = [
+    ['World in My Eyes', 4.86],
+    ['Sweetest Perfection', 4.43],
+    ['Personal Jesus', 4.56],
+    ['Halo', 4.9],
+    ['Waiting for the Night', 6.07],
+    ['Enjoy the Silence', 4.20],
+    ['Policy of Truth', 4.76],
+    ['Blue Dress', 4.29],
+    ['Clean', 5.83]
+]
+
+# здесь писать код
+N = int(input('Сколько песен выбрать? '))
+fav_songs = []
+fav_songs_time = 0
+for i_num in range(N):
+    song = input(f'Название {i_num + 1}-й песни: ')
+    while song not in [violator_songs[i_song][0] for i_song in range(len(violator_songs))]:
+        print('Такой песни нет в списке!')
+        song = input(f'Название {i_num + 1}-й песни: ')
+    else:
+        for i_song in range(len(violator_songs)):
+            if violator_songs[i_song][0] == song:
+                fav_songs.append(violator_songs[i_song])
+                fav_songs_time += violator_songs[i_song][1]
+
+print(f'Список любимых песен: {fav_songs}')
+print(f'Общее время звучания песен: {round(fav_songs_time, 2)} минуты')
+
+****************************************
+Скрипты, расположенные в папке Module16\06_roller_skates:
+
+# roller_skates
+skates_count = int(input('Кол-во коньков: '))
+skates_sizes = []
+for i_skate in range(skates_count):
+	skates_sizes.append(int(input(f'Размер {i_skate + 1}-й пары: ')))
+
+man_num = int(input('\nКол-во людей: '))
+man_sizes = []
+for i_man in range(man_num):
+	man_sizes.append(int(input(f'Размер ноги {i_man + 1}-го человека: ')))
+
+# print("\nРазмеры ног людей", man_sizes)
+# print("Размеры пар роликов", skates_sizes)
+
+count_matched = 0
+if len(skates_sizes) < len(man_sizes):
+	# if not all the skates will be distributed among people and skates_sizes list will not be empty
+	# after the end of the distribution of skates, enter the variable lim
+	lim = len(skates_sizes)
+	while len(skates_sizes) > 0 and lim > 0:
+		for skate_size in skates_sizes:
+			if skate_size in man_sizes:
+				# print("Совпал размер:", skate_size)
+				man_sizes.remove(skate_size)
+				skates_sizes.remove(skate_size)
+				count_matched += 1
+				lim -= 1
+			else:
+				lim -= 1
+				continue
+else:
+	# if not all the people get skates of the right size and man_sizes list will not be empty
+	# after the end of the distribution of skates, enter the variable lim
+	lim = len(man_sizes)
+	while len(man_sizes) > 0 and lim > 0:
+		for man_size in man_sizes:
+			if man_size in skates_sizes:
+				# print("Совпал размер:", man_size)
+				skates_sizes.remove(man_size)
+				man_sizes.remove(man_size)
+				count_matched += 1
+				lim -= 1
+			else:
+				lim -= 1
+				continue
+
+print("\nНаибольшее кол-во людей, которые могут взять ролики:", count_matched)
+
+****************************************
+Скрипты, расположенные в папке Module16\07_rhyme_cnt:
+
+# N человек, пронумерованных числами от 1 до N, стоят в кругу. Они начинают играть в считалку на выбывание.
+# Каждый K-й по счёту человек выходит из круга, после чего счёт продолжается со следующего за ним человека.
+# На вход подаётся количество человек N и номер K.
+# Напишите программу, которая выводит число от 1 до N — это номер человека, который останется в кругу последним.
+N = K = 0
+while N <= 0:
+	N = int(input("Кол-во человек: "))
+while K <= 0:
+	K = int(input("Какое число в считалке? "))
+
+players = list(range(1, N + 1))
+print(f"Значит, выбывает каждый {K}-й человек\n")
+
+i_K = 0
+while len(players) > 1:
+	print(f"Текущий круг людей: {players}")
+	print(f"Начало счёта с номера {players[i_K]}")
+
+	if K >= len(players):
+		i_K = (i_K + K - 1) % len(players)
+	else:
+		i_K = i_K + K - 1
+
+	if i_K >= len(players):
+		i_K = i_K - len(players)
+	leaving_player = players.pop(i_K)
+
+	if i_K == len(players):
+		i_K = 0
+
+	print(f"Выбывает человек под номером {leaving_player}\n")
+
+else:
+	print(f"Остался человек под номером {players[0]}")
+
+****************************************
+Скрипты, расположенные в папке Module16\08_simmetrical_seq:
+
+# A sequence of numbers is called symmetric if it reads equally from left to right and from right to left.
+# For example, the following sequences are symmetric:
+# 1 2 3 4 5 4 3 2 1
+# 1 2 1 2 2 1 2 1
+
+# Check if the sequence is symmetrical.
+def is_symmetrical(sequence):
+	symmetrical = False
+	if sequence == sequence[::-1]:
+		symmetrical = True
+	return symmetrical
+
+
+# Input sequence
+def input_sequence():
+	count = int(input("Кол-во чисел: "))
+	seq = []
+	for i_number in range(count):
+		seq.append(int(input(f"{i_number + 1}-е число: ")))
+	print(f"Последовательность: {seq}")
+	return seq
+
+
+seq_nums = input_sequence()
+appended_nums = []
+seq_nums_copy = seq_nums.copy()  # save original sequence for return to original state if needed
+temp = seq_nums.copy()  # its elements will be used to create symmetric sequence
+if is_symmetrical(seq_nums):
+	print(f"Ничего не нужно добавлять, последовательность {seq_nums} симметрична.")
+else:
+	# create symmetric sequence
+	while True:
+		appended_num = temp.pop(0)
+		appended_nums.append(appended_num)
+		seq_nums.extend(appended_nums[::-1])
+		if is_symmetrical(seq_nums):
+			break
+		else:
+			seq_nums = seq_nums_copy.copy()
+
+	print(f"Длина новой симметричной последовательности: {len(seq_nums)}, новая последовательность: {seq_nums}")
+	print(f"Нужно приписать чисел: {len(appended_nums)}")
+	print(f"Сами числа: {appended_nums[::-1]}")
+
+****************************************
+Скрипты, расположенные в папке Module17\01_vowels:
+
+# Напишите программу, которая запрашивает у пользователя текст и генерирует список из гласных букв этого текста
+# (сама строка вводится на русском языке). Выведите в консоль сам список и его длину.
+#
+# Пример:
+# Введите текст: Нужно отнести кольцо в Мордор!
+# Список гласных букв: ['у', 'о', 'о', 'е', 'и', 'о', 'о', 'о', 'о']
+# Длина списка: 9
+vowels_ru = "аеёиоуыэюяАЕЁИОУЫЭЮЯ"
+text = input("Введите текст: ")
+vowels_in_text = [let for let in text if let in vowels_ru]
+print(f"Список гласных букв: {vowels_in_text}")
+print(f"Длина списка: {len(vowels_in_text)}")
+
+****************************************
+Скрипты, расположенные в папке Module17\02_generation:
+
+# Задача 2. Генерация
+# Что нужно сделать
+# Пользователь вводит целое число N.
+# Необходимо написать программу, которая генерирует список из чисел от 0 до N (не включая N).
+# Например, если N — это 5, то нужно работать со списком 0, 1, 2, 3, 4.
+#
+# Также есть дополнительное условие. При заполнении списка нужно выполнить одно из двух действий с каждым числом:
+#
+# Если индекс числа чётный (или 0), то вместо числа необходимо взять 1;
+# Если индекс числа нечётный, то вместо числа необходимо взять остаток от деления этого числа на 5 (число % 5).
+# Таким образом нужен следующий алгоритм:
+#
+# цикл по числам
+#     если текущий индекс чётный
+#          то в список добавляется 1
+#     если текущий индекс нечётный
+#          то в список добавляется (число % 5)
+# Алгоритм нужно реализовать при помощи генератора списка (в одну строку).
+#
+# Пример:
+# # Введите длину списка: 10
+# Результат: [1, 1, 1, 3, 1, 0, 1, 2, 1, 4]
+count = int(input("Введите длину списка: "))
+my_list = [1 if i % 2 == 0 else i % 5 for i in range(count)]
+print(my_list)
+
+****************************************
+Скрипты, расположенные в папке Module17\03_random_competition:
+
+# Задача 3. Случайные соревнования
+# Что нужно сделать
+# Мы хотим протестировать работу электронной таблицы для участников некоторых соревнований.
+# Есть два списка (то есть две команды) по 20 участников в каждом.
+# В этих списках хранятся очки каждого участника (это вещественные числа с двумя знаками после точки, например 4.03).
+# Участник одной команды соревнуется с участником другой команды под таким же номером.
+# То есть первый соревнуется с первым, второй — со вторым и так далее.
+#
+# Напишите программу, которая генерирует два списка участников (по 20 элементов) из случайных вещественных чисел
+# (от 5 до 10). Для этого найдите подходящую функцию из модуля random.
+# Затем сгенерируйте третий список, в котором окажутся только победители из каждой пары.
+#
+# Пример:
+#
+# Первая команда:
+# [7.86, 6.76, 9.97, 9.08, 5.45, 6.9, 8.65, 5.17, 8.17, 5.06, 7.56, 7.1, 7.18, 8.25, 5.53, 7.95, 8.91, 7.11, 8.29, 9.52]
+# Вторая команда:
+# [7.13, 5.7, 8.89, 5.36, 5.62, 9.46, 5.82, 8.67, 8.41, 7.0, 5.31, 7.8, 9.93, 7.76, 7.4, 8.26, 7.94, 5.71, 7.89, 7.77]
+# Победители тура:
+# [7.86, 6.76, 9.97, 9.08, 5.62, 9.46, 8.65, 8.67, 8.41, 7.0, 7.56, 7.8, 9.93, 8.25, 7.4, 8.26, 8.91, 7.11, 8.29, 9.52]
+# Что оценивается
+# Результат вычислений корректен.
+# Формат вывода соответствует примеру.
+# Переменные и функции имеют значащие имена, не только a, b, c, d (подробнее об этом в видео 2.3).
+import random
+
+list_1 = [round(random.uniform(5, 10), 2) for _ in range(20)]
+list_2 = [round(random.uniform(5, 10), 2) for _ in range(20)]
+print("Первая команда:", list_1)
+print("Вторая команда:", list_2)
+print("Победители тура:", [list_1[i] if list_1[i] > list_2[i] else list_2[i] for i in range(20)])
+
+****************************************
+Скрипты, расположенные в папке Module17\04_slices:
+
+# Задача 4. Тренируемся со срезами
+# Что нужно сделать
+# Дана строка, в которой хранятся первые семь букв английского алфавита.
+# alphabet = 'abcdefg'
+# Напишите программу, которая выводит на экран десять вот таких результатов:
+#
+# 1. Копию строки.
+# 2. Элементы строки в обратном порядке.
+# 3. Каждый второй элемент строки (включая самый первый).
+# 4. Каждый второй элемент строки после первого.
+# 5. Все элементы до второго.
+# 6. Все элементы начиная с конца до предпоследнего.
+# 7. Все элементы в диапазоне индексов от 3 до 4 (не включая 4).
+# 8. Последние три элемента строки.
+# 9. Все элементы в диапазоне индексов от 3 до 4.
+# 10. То же, что и в предыдущем пункте, но в обратном порядке.
+# Для получения и вывода результатов используйте только команду print и срезы.
+#
+# Результаты работы программы:
+# 1: abcdefg
+# 2: gfedcba
+# 3: aceg
+# 4: bdf
+# 5: a
+# 6: g
+# 7: d
+# 8: efg
+# 9: de
+# 10: ed
+
+alphabet = 'abcdefg'
+# alphabet = '0123456789'
+# print("0. Оригинальная строка:", alphabet)
+print("1. Копия строки:", alphabet[:])
+print("2. Элементы строки в обратном порядке:", alphabet[::-1])
+print("3. Каждый второй элемент строки (включая самый первый):", alphabet[::2])
+print("4. Каждый второй элемент строки после первого:", alphabet[1::2])
+print("5. Все элементы до второго:", alphabet[:1])
+print("6. Все элементы начиная с конца до предпоследнего:", alphabet[-1:-2:-1])
+print("7. Все элементы в диапазоне индексов от 3 до 4 (не включая 4):", alphabet[3:4])
+print("8. Последние три элемента строки:", alphabet[-3:])
+print("9. Все элементы в диапазоне индексов от 3 до 4:", alphabet[3:5])
+print("10. То же, что и в предыдущем пункте, но в обратном порядке:", alphabet[4:2:-1])
+
+****************************************
+Скрипты, расположенные в папке Module17\05_reversal:
+
+# Задача 5. Разворот
+# Что нужно сделать
+# На вход в программу подаётся строка, в которой буква h встречается как минимум два раза.
+# Реализуйте код, который разворачивает последовательность символов,
+# заключённую между первым и последним появлением буквы h, в противоположном порядке.
+#
+# Пример 1:
+# Введите строку: hqwehrty
+# Развёрнутая последовательность между первым и последним h: ewq.
+#
+# Пример 2:
+# Введите строку: hh
+# Развёрнутая последовательность между первым и последним h:
+#
+# Пример 3:
+# Введите строку: hhqwerh
+# Развёрнутая последовательность между первым и последним h: rewqh.
+text = input("Введите строку: ")
+# h_left = text.find('h')
+# h_right = text.rfind('h')
+h_left = [i for i in range(len(text)) if text[i] == 'h'][0]
+h_right = [i for i in range(len(text)-1, -1, -1) if text[i] == 'h'][0]
+text_betw_h = text[h_left+1:h_right]
+print("Развёрнутая последовательность между первым и последним h: ", text_betw_h[::-1])
+
+****************************************
+Скрипты, расположенные в папке Module17\06_two_dimensional_list:
+
+# Задача 6. Двумерный список
+# Что нужно сделать
+# Как мы говорили ранее, в программировании часто приходится писать код исходя из результата, который требует заказчик.
+# В этот раз заказчику нужно получить вот такой двумерный список:
+#
+# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+#
+# Напишите программу, которая генерирует такой список и выводит его на экран. Используйте только list comprehensions.
+num_list = [[x * 4 + y for x in range(3)] for y in range(1, 5)]
+print(num_list)
+
+****************************************
+Скрипты, расположенные в папке Module17\07_list_of_lists_2:
+
+# Задача 7. Список списков
+# Что нужно сделать
+# Дан многомерный список:
+#
+# nice_list = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[10, 11, 12], [13, 14, 15], [16, 17, 18]]]
+# Напишите код, который «раскрывает» все вложенные списки, то есть оставляет только внешний список.
+# Для решения используйте только list comprehensions.
+#
+# Ответ: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+nice_list = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+             [[10, 11, 12], [13, 14, 15], [16, 17, 18]]]
+
+expanded_list = [i for ss_list in [item for sublist in nice_list for item in sublist] for i in ss_list]
+print(expanded_list)
+
+****************************************
+Скрипты, расположенные в папке Module17\08_caesar_cipher:
+
+# Задача 8. Шифр Цезаря
+# Что нужно сделать
+# Юлий Цезарь использовал свой способ шифрования текста.
+# Каждая буква заменялась на следующую по алфавиту через K позиций по кругу.
+# Если взять русский алфавит и K = 3, то в слове, которое мы хотим зашифровать, буква А станет буквой Г,
+# Б станет Д и так далее.
+#
+# Пользователь вводит сообщение, а также значение сдвига.
+# Напишите программу, которая зашифрует это сообщение при помощи шифра Цезаря.
+#
+# Пример:
+#
+# Введите сообщение: это питон.
+# Введите сдвиг: 3
+# Зашифрованное сообщение: ахс тлхср.
+
+
+def caesar_encrypt(char, shft):
+	alfabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+	if char not in alfabet:  # если буква не из русского алфавита (или это символ) - не шифруем
+		return char
+
+	i_pos = alfabet.index(char)
+	i_pos = (i_pos + shft) % 33  # сдвигаем, обеспечивая цикличность
+	return alfabet[i_pos]
+
+
+message = input("Введите сообщение: ")
+shift = int(input("Введите сдвиг: "))
+
+encrypted_msg = [caesar_encrypt(char, shift) for char in message]
+print("Зашифрованное сообщение: ", *encrypted_msg, sep='')
+
+****************************************
+Скрипты, расположенные в папке Module18\01_restaurant_menu:
+
+print("Доступное меню: ", end="")
+menu_list = input().split(";")
+print("Сейчас в меню есть:", ", ".join(menu_list))
+
+****************************************
+Скрипты, расположенные в папке Module18\02_longest_word:
+
+print("Введите строку: ", end="")
+input_string_list = input().split(" ")
+max_item = max(input_string_list, key=len)  # выбираем самое длинное слово из списка (1-е, если их несколько)
+print("Самое длинное слово:", max_item)
+print("Длина этого слова:", len(max_item), "символов.")
+****************************************
+Скрипты, расположенные в папке Module18\03_files:
+
+def is_string_starts_right(s):
+	return s[0] not in '@#$%%^&*()'
+
+
+def is_extension_right(s):
+	return s.endswith(".txt") or s.endswith(".docx")
+
+
+file_name = input(
+	"Введите название файла (только форматы .txt или .docx, "
+	"\nи не может начинаться с одного из специальных символов (@,#,$,%,^,&,*,(,)): "
+)
+
+message = ""
+if not is_extension_right(file_name):
+	message = "Ошибка: неверное расширение файла. Ожидалось .txt или .docx.\n"
+if not is_string_starts_right(file_name):
+	message = message + "Ошибка: название начинается недопустимым символом."
+if message == "":
+	message = "Файл назван верно."
+
+print(message)
+
+****************************************
+Скрипты, расположенные в папке Module18\04_capital_letters:
+
+input_string = input("Введите строку: ")
+print(input_string.title())
+
+****************************************
+Скрипты, расположенные в папке Module18\05_password:
+
+def is_password_strong(passwd):
+	if len(passwd) < 8:
+		return False
+	if not any(char.isupper() for char in passwd):
+		return False
+	if not any(char.isdigit() for char in passwd):
+		return False
+	if len([char for char in passwd if char.isdigit()]) < 3:
+		return False
+	return True
+
+
+def is_string_contains_cyrillic(s):
+	return any(char.lower() in s for char in "абвгдеежзийклмнопрстуфхцчшщъыьэюя")
+
+
+while True:
+	password = input("Придумайте пароль: ")
+	if is_string_contains_cyrillic(password):
+		print("Пароль содержит кириллицу. Попробуйте ещё раз.")
+		continue
+	if is_password_strong(password):
+		print("Это надёжный пароль.")
+		break
+	else:
+		print("Пароль ненадёжный. Попробуйте ещё раз.")
+
+****************************************
+Скрипты, расположенные в папке Module18\06_compression:
+
+def compress_string(input_str):
+	compressed_str = ""
+	count = 1
+	for i in range(len(input_str) - 1):
+		if input_str[i] == input_str[i + 1]:
+			count += 1
+		else:
+			compressed_str += input_str[i] + str(count)
+			count = 1
+	
+	compressed_str += input_str[-1] + str(count)
+	return compressed_str
+
+
+input_string = input("Введите строку: ")
+compressed_string = compress_string(input_string)
+print("Закодированная строка:", compressed_string)
+
+****************************************
+Скрипты, расположенные в папке Module18\07_ip_adress_2:
+
+def get_is_ip_valid_message(ip_addr):
+	message = "IP-адрес корректен."
+	ip_addr_lst = ip_addr.split(".")
+	if len(ip_addr_lst) != 4:
+		message = "Адрес — это четыре числа, разделённые точками.\n"
+	else:
+		for digit in ip_addr_lst:
+			if not digit.isdigit() or int(digit) < 0:
+				message = str(digit) + " — это не целое положительное число.\n"
+			elif int(digit) > 255:
+				message = str(digit) + " превышает 255.\n"
+	
+	return message
+
+
+ip_address = input("Введите IP-адрес: ")
+print(get_is_ip_valid_message(ip_address))
+
+****************************************
+Скрипты, расположенные в папке Module18\08_ticker:
+
+def is_strings_equal_or_shifted(str_1, str_2):
+	message = "Первую строку нельзя получить из второй с помощью циклического сдвига."
+	if str_1 == str_2:
+		message = "Строки одинаковы."
+	else:
+		if len(str_1) == len(str_2):
+			for i in range(len(str_1)):
+				if str_1[i:] + str_1[:i] == str_2:
+					message = "Первая строка получается из второй со сдвигом " + str(i)
+					break
+
+	return message
+
+
+string_1 = input("Введите первую строку: ")
+string_2 = input("Введите вторую строку: ")
+resume_message = is_strings_equal_or_shifted(string_1, string_2)
+print(resume_message)
+
+****************************************
+Скрипты, расположенные в папке Module18\09_comment_analysis:
+
+def count_uppercase_lowercase(text):
+	upp_case_count = 0
+	low_case_count = 0
+	for char in text:
+		if char.isupper():
+			upp_case_count += 1
+		elif char.islower():
+			low_case_count += 1
+	return upp_case_count, low_case_count
+
+
+input_text = input("Введите строку для анализа: ")
+res_uppercase, res_lowercase = count_uppercase_lowercase(input_text)
+print("Количество заглавных букв:", res_uppercase)
+print("Количество строчных букв:", res_lowercase)
+****************************************
+Скрипты, расположенные в папке Module19\01_songs_2:
+
+# Задание 1. Песни — 2
+# Что нужно сделать
+# Продолжим писать приложение для удобного прослушивания музыки, но теперь песни хранятся в виде словаря,
+# а не в виде вложенных списков. Каждая песня состоит из названия и продолжительности с точностью до долей минут.
+#
+# violator_songs = {
+# 'World in My Eyes': 4.86,
+# 'Sweetest Perfection': 4.43,
+# 'Personal Jesus': 4.56,
+# 'Halo': 4.9,
+# 'Waiting for the Night': 6.07,
+# 'Enjoy the Silence': 4.20,
+# 'Policy of Truth': 4.76,
+# 'Blue Dress': 4.29,
+# 'Clean': 5.83
+# }
+# Напишите программу, которая запрашивает у пользователя количество песен из списка и их названия,
+# а на экран выводит общее время их звучания.
+#
+# Пример
+# Сколько песен выбрать? 3
+# Название первой песни: Halo
+# Название второй песни: Enjoy the Silence
+# Название третьей песни: Clean
+# Общее время звучания песен: 14,93 минуты
+
+def total_time_of_songs(num):
+    total_time = 0
+    i = 0
+    while i < num:
+        print(f'Название {i + 1}-й песни: ', end='')
+        song_name = input()
+        if song_name in violator_songs:
+            total_time += violator_songs[song_name]
+            i += 1
+        else:
+            print('Такой песни нет в списке!')
+            continue
+    return round(total_time, 2)
+
+
+violator_songs = {
+    'World in My Eyes': 4.86,
+    'Sweetest Perfection': 4.43,
+    'Personal Jesus': 4.56,
+    'Halo': 4.9,
+    'Waiting for the Night': 6.07,
+    'Enjoy the Silence': 4.20,
+    'Policy of Truth': 4.76,
+    'Blue Dress': 4.29,
+    'Clean': 5.83
+}
+
+input_nums = int(input('Сколько песен выбрать? '))
+
+print('Общее время звучания песен:', total_time_of_songs(input_nums), 'минуты')
+
+****************************************
+Скрипты, расположенные в папке Module19\02_cryptocurrency:
+
+# Задание 2. Криптовалюта
+# Что нужно сделать
+# При работе с API (application programming interface) сайта биржи по криптовалюте вы получили такие данные
+# в виде словаря (см. ниже переменная data). Теперь необходимо обработать эти данные.
+#
+# Напишите программу, которая выполняет следующий алгоритм действий:
+#
+# Вывести списки ключей и значений словаря.
+# В ETH добавить ключ total_diff со значением 100.
+# Внутри fst_token_info значение ключа name поменять с fdf на doge.
+# Удалить total_out из словарей внутри списка tokens и присвоить сумму этих значений в total_out внутри ETH.
+# Внутри sec_token_info изменить название ключа price на total_price.
+# После выполнения алгоритма выводить результат (словарь) не нужно.
+#
+# Советы и рекомендации
+# Если вы достали из словаря список по ключу, то можете применять к нему методы списка.
+# Например:
+#
+# словарь[“список”].append(123)
+#
+# Python возьмёт из словаря объект по ключу «список» и применит к нему метод append.
+# Эта же логика работает с другими типами данных. Например, если вы достали из словаря словарь,
+# то к нему можно применять методы словаря, а если достали строку — методы строк.
+#
+# Чтобы не запутаться, распечатывайте объект, который получаете в данный момент. Также можно распечатать тип объекта:
+# print(data)
+# print(data[‘ключ’], type(data[‘ключ’]))
+# print(data[‘ключ’][0], type(data[‘ключ’][0]))
+# и так далее.
+#
+# Так вы всегда будете понимать, над каким объектом работаете в данный момент.
+import pprint
+
+data = {
+    "address": "0x544444444444",
+    "ETH": {
+        "balance": 444,
+        "total_in": 444,
+        "total_out": 4
+    },
+    "count_txs": 2,
+    "tokens": [
+        {
+            "fst_token_info": {
+                "address": "0x44444",
+                "name": "fdf",
+                "decimals": 0,
+                "symbol": "dsfdsf",
+                "total_supply": "3228562189",
+                "owner": "0x44444",
+                "last_updated": 1519022607901,
+                "issuances_count": 0,
+                "holders_count": 137528,
+                "price": False
+            },
+            "balance": 5000,
+            "totalIn": 0,
+            "total_out": 0
+        },
+        {
+            "sec_token_info": {
+                "address": "0x44444",
+                "name": "ggg",
+                "decimals": "2",
+                "symbol": "fff",
+                "total_supply": "250000000000",
+                "owner": "0x44444",
+                "last_updated": 1520452201,
+                "issuances_count": 0,
+                "holders_count": 20707,
+                "price": False
+            },
+            "balance": 500,
+            "totalIn": 0,
+            "total_out": 0
+        }
+    ]
+}
+
+# 1.1) выведем список ключей словаря data
+print("\n1.1) Список ключей словаря данных:")
+data_keys_list = list(data.keys())
+print(data_keys_list)
+
+# 1.2) выведем список значений словаря data
+print("\n1.2) Список значений словаря данных:")
+data_values_list = list(data.values())
+print(data_values_list)
+
+# 2) в ETH добавим ключ total_diff со значением 100
+data['ETH']['total_diff'] = 100
+print("\n2) В словарь ETH добавлен новый ключ total_diff со значением 100:")
+print("Значение ключа total_diff:", data['ETH']['total_diff'], "\nТип значения:", type(data['ETH']['total_diff']))
+print("Сам словарь ETH:", data['ETH'])
+
+# 3) Внутри fst_token_info значение ключа name поменять с fdf на doge
+data['tokens'][0]['fst_token_info']['name'] = 'doge'
+print("\n3) Значение ключа fst_token_info (типа словарь) словаря tokens "
+        "(с измененным в нем значением ключа name с 'fdf' на 'doge'):")
+pprint.pprint(data['tokens'][0]['fst_token_info'])
+
+# 4.1) Просуммируем значения total_out внутри списка tokens и присвоим эту сумму в total_out внутри ETH
+total_out_sum = sum(token['total_out'] for token in data['tokens'])
+data['ETH']['total_out'] = total_out_sum
+print("\n4.1) Значение total_out внутри ETH:", data['ETH']['total_out'])
+
+# 4.2) Удалим total_out из словарей внутри списка tokens
+for token in data['tokens']:
+    token.pop('total_out')
+print("\n4.2) Значение элементов списка tokens после удаления total_out:")
+pprint.pprint(data['tokens'])
+print("\nТипы значения элементов списка tokens:", [type(j) for j in data['tokens']])
+
+# 5) Внутри sec_token_info изменить название ключа price на total_price.
+data['tokens'][1]['sec_token_info']['total_price'] = data['tokens'][1]['sec_token_info'].pop('price')
+print("\n5) Измененный словарь 'sec_token_info' (ключ price удален, добавлен новый ключ total_price со значением "
+        "удаленного ключа price):")
+pprint.pprint(data['tokens'][1])
+
+# итоговый словарь
+print("\n6) Итоговый словарь данных:")
+pprint.pprint(data)
+
+****************************************
+Скрипты, расположенные в папке Module19\03_goods:
+
+# Задание 3. Товары
+# Что нужно сделать
+# В базе данных магазина вся необходимая информация по товарам делится на два словаря (см. ниже: goods и store)
+# первый отвечает за коды товаров, второй — за списки количества разнообразных товаров на складе.
+
+# Каждая запись второго словаря отображает, сколько и по какой цене закупалось товаров. Цена указана за одну штуку.
+# Напишите программу, которая рассчитывает общую стоимость позиций для каждого товара на складе
+# выводит эту информацию на экран.
+#
+# Результат работы программы:
+#
+# Лампа — 27 штук, стоимость 1134 рубля.
+# Стол — 54 штуки, стоимость 27 860 рублей.
+# Диван — 3 штуки, стоимость 3550 рублей.
+# Стул — 105 штук, стоимость 10 311 рублей.
+def rubles_form(num_str):
+    r_forms = {1: "рубль", 2: "рубля", 3: "рубля", 4: "рубля"}
+    if int(num_str) in list(r_forms.keys()):
+        return r_forms[int(num_str)]
+    else:
+        return "рублей"
+        
+
+def items_form(num_str):
+    i_forms = {1: "штука", 2: "штуки", 3: "штуки", 4: "штуки"}
+    if int(num_str) in list(i_forms.keys()):
+        return i_forms[int(num_str)]
+    else:
+        return "штук"
+
+
+# артикулы товаров
+goods = {
+    'Лампа': '12345',
+    'Стол': '23456',
+    'Диван': '34567',
+    'Стул': '45678',
+}
+
+# количество товаров на складе и их цена в рублях
+store = {
+    '12345': [
+        {'quantity': 27, 'price': 42},
+    ],
+    '23456': [
+        {'quantity': 22, 'price': 510},
+        {'quantity': 32, 'price': 520},
+    ],
+    '34567': [
+        {'quantity': 2, 'price': 1200},
+        {'quantity': 1, 'price': 1150},
+    ],
+    '45678': [
+        {'quantity': 50, 'price': 100},
+        {'quantity': 12, 'price': 95},
+        {'quantity': 43, 'price': 97},
+    ],
+}
+
+# пройдемся по каждому товару из словаря goods и вычислим его общую стоимость
+# исходя из количества и цены из второго словаря
+for item in goods:
+    total_cost = 0
+    total_quantity = 0
+    for i in store[goods[item]]:
+        total_cost += i['quantity'] * i['price']
+        total_quantity += i['quantity']
+    formatted_tot_cost = f"{total_cost:,.0f}".replace(',', ' ')  # форматируем цену
+    formatted_tot_quantity = f"{total_quantity:,.0f}".replace(',', ' ')  # форматируем количество
+    print(f"{item} - {total_quantity} {items_form(formatted_tot_quantity[-1])}, "
+            f"стоимость {formatted_tot_cost} {rubles_form(formatted_tot_cost[-1])}")
+
+****************************************
+Скрипты, расположенные в папке Module19\04_frequency_hist_2:
+
+# Задание 4. Гистограмма частоты — 2
+# Что нужно сделать
+# Вы уже писали программу для лингвистов, которая получала на вход текст и считала,
+# сколько раз каждый символ встречается в строке. Теперь задание изменилось: максимальную частоту выводить не нужно,
+# но необходимо написать функцию, которая будет инвертировать полученный словарь.
+# То есть в качестве ключа будет частота, а в качестве значения — список символов с этой частотой.
+#
+# По итогу нужно реализовать следующие подзадачи:
+#
+# получить текст и создать из него оригинальный словарь частот;
+# создать новый словарь и заполнить его данными из оригинального словаря частот,
+# используя количество повторов в качестве ключей, а буквы — в качестве значений, добавляя их в список для хранения.
+#
+# Пример
+# Введите текст: здесь что-то написано
+#
+# Оригинальный словарь частот:
+# : 2
+# - : 1
+# З : 1
+# а : 2
+# д : 1
+# е : 1
+# и : 1
+# н : 2
+# о : 3
+# п : 1
+# с : 2
+# т : 2
+# ч : 1
+# ь : 1
+#
+# Инвертированный словарь частот:
+# 1 : ['З', 'д', 'е', 'ь', 'ч', '-', 'п', 'и']
+# 2 : ['с', ' ', 'т', 'н', 'а']
+# 3 : ['о']
+def histogram(string):
+	# создаем словарь для хранения частоты встречаемости букв
+	letter_freq = {}
+	for let in string:
+		if let in letter_freq:
+			letter_freq[let] += 1
+		else:
+			letter_freq[let] = 1
+	return letter_freq
+
+
+# запрашиваем у пользователя строку, которую приводим к нижнему регистру, удаляем незначащие пробелы по краям строки
+input_text = input("Введите текст: ").lower().strip()
+hist = histogram(input_text)
+# print(hist)
+# print(sorted(hist.keys()))
+# print(sorted(hist))
+
+# выводим на экран буквы в алфавитном порядке и их частоты встречаемости
+print('Оригинальный словарь частот:')
+for letter in sorted(hist.keys()):
+	print(f"{letter}: {hist[letter]}")
+
+# выводим на экран инвертированный словарь частот, где количество повторов является ключами, а буквы — значениями
+print('\nИнвертированный словарь частот:')
+freq_set = set(hist.values())
+for freq in sorted(freq_set):
+	print(f"{freq}: {sorted([key for key in hist if hist[key] == freq])}")
+
+****************************************
+Скрипты, расположенные в папке Module19\05_synonym_dict:
+
+# Задание 5. Словарь синонимов
+# Что нужно сделать
+# Одна библиотека поручила вам написать программу для оцифровки словарей синонимов.
+# На вход в программу подаётся N пар слов. Каждое слово является синонимом для своего парного слова.
+#
+# Реализуйте код, который составляет словарь синонимов (все слова в словаре различны),
+# затем запрашивает у пользователя слово и выводит на экран его синоним.
+# Обеспечьте контроль ввода: если такого слова нет, выведите ошибку и запросите слово ещё раз.
+# При этом проверка не должна зависеть от регистра символов.
+#
+# Пример
+# Введите количество пар слов: 3
+# Первая пара: Привет — Здравствуйте
+# Вторая пара: Печально — Грустно
+# Третья пара: Весело — Радостно
+# Введите слово: интересно
+# Такого слова в словаре нет.
+# Введите слово: здравствуйте
+# Синоним: Привет
+
+# инициализируем словарь синонимов
+synonyms_dict = {}
+# пользователь определяет количество пар синонимов
+syns_num = int(input('Введите количество пар слов: '))
+# пользователь вводит пары синонимов
+for i_pair in range(syns_num):
+	word1, word2 = input(f'Введите пару {i_pair + 1}: ').split('—')
+	synonyms_dict[word1.strip().lower()] = word2.strip().lower()
+	synonyms_dict[word2.strip().lower()] = word1.strip().lower()
+
+# print('Словарь синонимов:', synonyms_dict)
+
+while True:
+	word = input('Введите слово (для выхода введите "end"): ')
+	if word.lower() in synonyms_dict:
+		print(f'Синоним: {synonyms_dict[word].capitalize()}')
+		break
+	elif word == 'end':
+		print('Всего хорошего!')
+		break
+	else:
+		print('Такого слова в словаре нет.')
+
+****************************************
+Скрипты, расположенные в папке Module19\06_pizza:
+
+# Задание 6. Пицца
+# Что нужно сделать
+# В базе данных интернет-магазина PizzaTime хранятся сведения о том,
+# кто, что и сколько заказывал у них в определённый период.
+# Вам нужно структурировать эту информацию и определить, сколько всего пицц купил каждый заказчик.
+#
+# На вход в программу подаётся N заказов.
+# Каждый заказ представляет собой строку вида «Покупатель — название пиццы — количество заказанных пицц».
+# Реализуйте код, который выводит список покупателей и их заказов по алфавиту.
+# Учитывайте, что один человек может заказать одну и ту же пиццу несколько раз.
+#
+# Пример
+# Введите количество заказов: 6
+# Первый заказ: Иванов Пепперони 1
+# Второй заказ: Петров Де-Люкс 2
+# Третий заказ: Иванов Мясная 3
+# Четвёртый заказ: Иванов Мексиканская 2
+# Пятый заказ: Иванов Пепперони 2
+# Шестой заказ: Петров Интересная 5
+#
+# Иванов:
+# Мексиканская: 2
+# Мясная: 3
+# Пепперони: 3
+#
+# Петров:
+# Де-Люкс: 2
+# Интересная: 5
+
+# функция для добавления новых заказов
+def get_customers_orders(orders_num):
+	# создаем словарь для хранения заказов
+	cust_orders = {}
+	# цикл для ввода заказов
+	i = 0
+	while i < orders_num:
+		# пользователь вводит покупателя и его заказ
+		order_list = input(f"Заказ {i + 1}: ").split()
+		# проверка введенных данных на полноту и корректность
+		if (
+				len(order_list) != 3
+				or not order_list[0].isalpha()
+				# в названии пиццы могут быть только буквы или дефис
+				or not (order_list[1].isalpha() or "-" in order_list[1])
+				or not order_list[2].isdigit()
+		):
+			print("Некорректные данные, повторите ввод!")
+			continue
+		customer, pizza, count = order_list[0], order_list[1], order_list[2]
+		# добавляем заказ
+		add_order(customer, pizza, count, cust_orders)
+		i += 1
+	return cust_orders
+
+
+def add_order(client, pizza_name, pizza_cnt, clients_orders):
+	# если покупатель ещё не существует, добавляем его в словарь
+	if client not in clients_orders:
+		clients_orders[client] = {}
+	# если пицца ещё не существует, добавляем её в словарь
+	if pizza_name not in clients_orders[client]:
+		clients_orders[client][pizza_name] = 0
+	# добавляем количество заказанных пицц
+	clients_orders[client][pizza_name] += int(pizza_cnt)
+	return
+
+
+# функция для вывода списка покупателей и их заказов
+def print_orders(cust_orders):
+	for client, orders in sorted(cust_orders.items()):
+		print(f"\n{client}:")
+		for pizza_name, pizza_count in sorted(orders.items()):
+			print(f"\t{pizza_name}: {pizza_count}")
+	return
+
+
+# пользователь вводит количество заказов, проверяем, что введено число
+orders_count = input("Введите количество заказов: ")
+while not orders_count.isdigit():
+	print("Некорректные данные, повторите ввод!")
+	orders_count = input("Введите количество заказов: ")
+orders_count = int(orders_count)
+
+# получаем словарь для хранения заказов
+customers_orders = get_customers_orders(orders_count)
+
+# выводим список покупателей и их заказов
+print_orders(customers_orders)
+
+****************************************
+Скрипты, расположенные в папке Module19\07_three_lists:
+
+# Задание 7. Три списка
+# Что нужно сделать
+# Даны три списка.
+# array_1 = [1, 5, 10, 20, 40, 80, 100]
+# array_2 = [6, 7, 20, 80, 100]
+# array_3 = [3, 4, 15, 20, 30, 70, 80, 120]
+#
+# Нужно выполнить две задачи:
+# 1) найти элементы, которые есть в каждом списке;
+# 2) найти элементы из первого списка, которых нет во втором и третьем списках.
+#
+# Каждую задачу нужно выполнить двумя способами:
+# 1) без использования множеств;
+# 2) с использованием множеств.
+#
+# Пример выполнения на других данных:
+# array_1 = [1, 2, 3, 4]
+# array_2 = [2, 4]
+# array_3 = [2, 3]
+#
+# Вывод:
+#
+# Задача 1:
+# Решение без множеств: 2
+# Решение с множествами: 2
+#
+# Задача 2:
+# Решение без множеств: 1
+# Решение с множествами: 1
+
+array_1 = [1, 5, 10, 20, 40, 80, 100]
+array_2 = [6, 7, 20, 80, 100]
+array_3 = [3, 4, 15, 20, 30, 70, 80, 120]
+print("\nИсходные списки:\n", array_1, "\n", array_2, "\n", array_3)
+
+print("\nЗадача 1 (ищем элементы, которые есть в каждом списке):")
+# найти элементы, которые есть в каждом списке без использования множеств
+common_elements = []
+for element in array_1:
+    if element in array_2 and element in array_3:
+        common_elements.append(element)
+
+print("Решение без множеств:", ', '.join(str(elem) for elem in common_elements))
+
+# найти элементы, которые есть в каждом списке с использованием множеств
+common_elements = set(array_1) & set(array_2) & set(array_3)
+print("Решение с множествами:", ', '.join(str(elem) for elem in common_elements))
+
+print("\nЗадача 2 (ищем элементы из первого списка, которых нет во втором и третьем списках):")
+# найти элементы из первого списка, которых нет во втором и третьем списках без использования множеств
+not_common_elements = []
+for element in array_1:
+    if element not in array_2 and element not in array_3:
+        not_common_elements.append(element)
+
+print("Решение без множеств:", ', '.join(str(elem) for elem in not_common_elements))
+
+# найти элементы из первого списка, которых нет во втором и третьем списках с использованием множеств
+not_common_elements = set(array_1) - set(array_2) - set(array_3)
+print("Решение с множествами:", ', '.join(str(elem) for elem in not_common_elements))
+
+****************************************
+Скрипты, расположенные в папке Module19\08_palindrome_again:
+
+# Задание 8. Снова палиндром
+# Что нужно сделать
+# Пользователь вводит строку. Необходимо написать программу, которая определяет,
+# существует ли у этой строки перестановка, при которой она станет палиндромом.
+# Затем она должна выводить соответствующее сообщение.
+#
+# Пример 1
+# Введите строку: aab
+# Можно сделать палиндромом
+#
+# Пример 2
+# Введите строку: aabc
+# Нельзя сделать палиндромом
+
+# палиндром - симметричная строка, которая читается одинаково слева направо и справа налево
+# такое возможно в двух случаях:
+# - строка содержит четное кол-во букв (тогда кол-во каждой из букв, составляющих палиндром, должно быть четное)
+# - строка содержит нечетное кол-во букв (тогда кол-во каждой из букв, составляющих палиндром, должно быть нечетное)
+# отсюда условие для палиндрома - в строке-палиндроме должно быть не более одной буквы с нечетным количеством
+def is_palindrome_possible(string):
+	# создадим словарь с кол-вом повторяющихся букв,
+	# где ключи - буквы, а значения - количество повторов этих букв в строке
+	dict_of_letters = {}
+	for letter in string:
+		if letter in dict_of_letters:
+			dict_of_letters[letter] += 1
+		else:
+			dict_of_letters[letter] = 1
+	
+	# посчитаем количество букв с нечетной частотой
+	count_of_odd_numbers = 0
+	for value in dict_of_letters.values():
+		if value % 2 != 0:
+			count_of_odd_numbers += 1
+	if count_of_odd_numbers <= 1:
+		return "Можно сделать палиндромом"
+	else:
+		return "Нельзя сделать палиндромом"
+
+
+print(is_palindrome_possible(input('Введите строку: ')))
+
+****************************************
+Скрипты, расположенные в папке Module20\01_code_review:
+
+students = {
+    1: {
+        'name': 'Bob',
+        'surname': 'Vazovski',
+        'age': 23,
+        'interests': ['biology, swimming']
+    },
+    2: {
+        'name': 'Rob',
+        'surname': 'Stepanov',
+        'age': 24,
+        'interests': ['math', 'computer games', 'running']
+    },
+    3: {
+        'name': 'Alexander',
+        'surname': 'Krug',
+        'age': 22,
+        'interests': ['languages', 'health food']
+    }
+}
+
+
+# функция, которая принимает в качестве аргумента словарь и возвращает два значения:
+# - полный список интересов всех студентов
+# - общую длину всех фамилий студентов
+def get_student_info(stud_dict):
+    stud_hobbies, tot_surname_length = [], 0
+    
+    for _, stud_info in stud_dict.items():
+        stud_hobbies.extend(stud_info['interests'])
+        tot_surname_length += len(stud_info['surname'])
+    
+    return stud_hobbies, tot_surname_length
+
+
+# выведем на экран список пар «ID студента — возраст»
+stud_ages = []
+for student_id, student_info in students.items():
+    stud_ages.append((student_id, student_info['age']))
+print("\nСписок пар «ID студента — возраст»:", stud_ages)
+
+hobbies, total_surname_length = get_student_info(students)
+print("\nПолный список интересов всех студентов:", hobbies)
+print("Общая длина всех фамилий студентов:", total_surname_length)
+
+****************************************
+Скрипты, расположенные в папке Module20\02_universal_prog_2:
+
+# Напишите функцию, возвращающую список элементов итерируемого объекта (кортежа, строки, списка, словаря),
+# у которых индекс — это простое число. Для проверки на простое число напишите отдельную функцию is_prime.
+# Необязательное усложнение: сделайте так, чтобы основная функция состояла только из оператора return
+# и так же возвращала список.
+#
+# Пример вызова функции:
+# print(crypto([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+# Ответ в консоли: [2, 3, 5, 7]
+#
+# Пример вызова функции:
+# print(crypto('О Дивный Новый мир!'))
+# Ответ в консоли: ['Д', 'и', 'н', 'й', 'в', 'й', 'р']
+
+# функция проверяет - является ли число простым
+def is_prime_number(num):
+	return isinstance(num, int) and num > 1 and all(num % i != 0 for i in range(2, int(num ** 0.5) + 1))
+
+
+# функция возвращает список только тех элементов итерируемого объекта (кортежа, строки, списка, словаря),
+# у которых индекс является простым числом
+def crypto(iterable):
+	return [elem for ind, elem in enumerate(iterable) if is_prime_number(ind)]
+
+
+# функция получает в качестве аргумента итерируемый объект и выводит его в консоль вместе с сообщением,
+# зависящим от типа итерируемого объекта
+def print_result(result):
+	for elem in result:
+		print(f"Пример работы функции {type_to_str(elem)} \"{elem}\":\n{crypto(elem)}")
+
+
+# функция определяет тип итерируемого объекта и возвращает название типа
+def type_to_str(iterable):
+	if isinstance(iterable, list):
+		return "со списком"
+	elif isinstance(iterable, str):
+		return "со строкой"
+	elif isinstance(iterable, dict):
+		return "со словарем"
+	elif isinstance(iterable, tuple):
+		return "с кортежем"
+
+
+# тестовые значения итерируемых объектов
+test_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+test_string = 'О Дивный Новый мир!'
+test_dict = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9, 'k': 10}
+test_tuple = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+test_total = [test_list, test_string, test_dict, test_tuple]
+
+# тестируем работу программы с разными типами итерируемых объектов
+print_result(test_total)
+
+****************************************
+Скрипты, расположенные в папке Module20\03_players:
+
+# Напишите программу, которая объединяет ключ словаря со значением в один кортеж, и выведите результат на экран.
+# Постарайтесь использовать как можно более эффективное решение.
+#
+# Результат работы программы:
+# [('Ivan', 'Volkin', 10, 5, 13), ('Bob', 'Robbin', 7, 5, 14), ('Rob', 'Bobbin', 12, 8, 2)]
+
+players = {
+    ("Ivan", "Volkin"): (10, 5, 13),
+    ("Bob", "Robbin"): (7, 5, 14),
+    ("Rob", "Bobbin"): (12, 8, 2)
+}
+
+print([(key + value) for key, value in players.items()])
+
+****************************************
+Скрипты, расположенные в папке Module20\04_pairs:
+
+# Задача 4. По парам
+# Что нужно сделать.
+# Напишите программу, которая инициализирует список из 10 случайных целых чисел, а затем делит эти числа
+# на пары кортежей внутри списка. Выведите результат на экран. Дополнительно: решите задачу несколькими способами.
+#
+# Пример:
+# Оригинальный список: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# Новый список: [(0, 1), (2, 3), (4, 5), (6, 7), (8, 9)]
+import random
+
+# способ 1 - с помощью zip объединяем в кортежи два списка с элементами четными и нечетными
+list_5 = [random.randint(0, 10) for _ in range(10)]
+print('\n# Способ 1\nОригинальный список:', list_5)
+list_6 = list(zip(list_5[::2], list_5[1::2]))
+print('Новый список:', list_6)
+
+# способ 2 - в цикле с шагом 2 объединяем все соседние пары списка
+list_5 = [random.randint(0, 10) for _ in range(10)]
+print('\n# Способ 2\nОригинальный список:', list_5)
+list_6 = [(list_5[i_num], list_5[i_num + 1]) for i_num in range(0, len(list_5), 2)]
+print('Новый список:', list_6)
+
+# способ 3 - видоизменение 2-го способа с использованием среза списка
+list_5 = [random.randint(0, 10) for _ in range(10)]
+print('\n# Способ 3\nОригинальный список:', list_5)
+list_6 = [tuple(list_5[i:i + 2]) for i in range(0, len(list_5), 2)]
+print('Новый список:', list_6)
+
+****************************************
+Скрипты, расположенные в папке Module20\05_sort_function:
+
+# Задача 5. Функция сортировки
+# Что нужно сделать.
+# Напишите функцию, которая сортирует по возрастанию кортеж, состоящий из целых чисел, и возвращает его отсортированным.
+# Если хотя бы один элемент не является целым числом, то функция возвращает исходный кортеж.
+#
+# Основной код оставьте пустым или закомментированным (используйте его только для тестирования).
+#
+# Пример вызова функции:
+# tpl = (6, 3, -1, 8, 4, 10, -5)
+# print(tpl_sort(tpl))
+# Ответ в консоли: (-5, -1, 3, 4, 6, 8, 10)
+
+# функция проверяет все ли элементы в кортеже являются целыми числами
+def is_tuple_of_not_integers_only(tpl):
+	return any(not isinstance(i_elem, int) for i_elem in tpl)
+
+
+# функция сортирует по возрастанию кортеж, состоящий из целых чисел
+def tpl_sort(tpl):
+	if is_tuple_of_not_integers_only(tpl):
+		return tpl
+	return sorted(tpl)
+
+
+tuple_1 = (6, 3, -1, 8, 4, 10, -5)
+tuple_2 = (6.5, 3, -1, 8, 4.5, 10, -5)
+
+print(f"\nОтвет в консоли для кортежа '{tuple_1}':\n{tpl_sort(tuple_1)}")
+print(f"\nОтвет в консоли для кортежа '{tuple_2}:\n{tpl_sort(tuple_2)}")
+
+****************************************
+Скрипты, расположенные в папке Module20\06_contacts_3:
+
+# Задача 6. Контакты 3
+# Что нужно сделать
+# Мы уже помогали Степану с реализацией телефонной книги на телефоне, однако внезапно оказалось,
+# что книге не хватает ещё одной полезной функции — поиска.
+# Напишите программу, которая бесконечно запрашивает у пользователя действие, которое он хочет совершить:
+# - добавить контакт или
+# - найти человека в списке контактов по фамилии.
+#
+# Действие добавить контакт: программа запрашивает имя и фамилию контакта, затем номер телефона, добавляет их в словарь
+# и выводит на экран текущий словарь контактов. Если этот человек уже есть в словаре,
+# то выводится соответствующее сообщение.
+#
+# Действие поиск человека по фамилии: программа запрашивает фамилию и выводит все контакты с такой фамилией
+# и их номера телефонов. Поиск не должен зависеть от регистра символов.
+#
+# Пример работы программы:
+#
+# Введите номер действия:
+#  1. Добавить контакт
+#  2. Найти человека
+# 1
+# Введите имя и фамилию нового контакта (через пробел): Иван Сидоров
+# Введите номер телефона: 888
+# Текущий словарь контактов: {('Иван', 'Сидоров'): 888}
+# Введите номер действия:
+#  1. Добавить контакт
+#  2. Найти человека
+# 1
+# Введите имя и фамилию нового контакта (через пробел): Иван Сидоров
+# Такой человек уже есть в контактах.
+# Текущий словарь контактов: {('Иван', 'Сидоров'): 888}
+# Введите номер действия:
+#  1. Добавить контакт
+#  2. Найти человека
+# 1
+# Введите имя и фамилию нового контакта (через пробел): Алиса Петрова
+# Введите номер телефона: 999
+# Текущий словарь контактов: {('Иван', 'Сидоров'): 888, ('Алиса', 'Петрова'): 999}
+# Введите номер действия:
+#  1. Добавить контакт
+#  2. Найти человека
+# 2
+# Введите фамилию для поиска: Сидоров
+# Иван Сидоров 888
+# Введите номер действия:
+#  1. Добавить контакт
+#  2. Найти человека
+# …….
+
+def add_contact():
+	name, surname = input("Введите имя: "), input("Введите фамилию: ")
+	if find_contact(name, surname):
+		return
+	phone = int(input("Введите номер телефона: "))
+	contacts[(name, surname)] = phone
+	print("Текущий словарь контактов: {}".format(contacts))
+
+
+def find_contact(name, last_name):
+	
+	message = "Такой человек есть в контактах:"
+	for (i_name, i_surname), value in contacts.items():
+		
+		# search by name only
+		if name is None:
+			if last_name.lower() == i_surname.lower():
+				print("{0}\n{1} {2} {3}".format(message, i_name, i_surname, value))
+				return True
+		
+		# search by both first and last name
+		elif not (name is None and last_name is None):
+			if name.lower() == i_name.lower() and last_name.lower() == i_surname.lower():
+				print("{0}\n{1} {2} {3}".format(message, i_name, i_surname, value))
+				return True
+
+	return False
+
+
+def make_choice():
+	add_cont, find_cont, exit_app, wrong_input_data = (
+		"Добавить контакт", "Найти человека по фамилии",
+		"Завершить работу программы", "Некорректное значение. Повторите ввод!")
+	
+	while True:
+		choice = input("\nВведите номер действия:\n  1. {0}\n  2. {1}\n  3. {2}\n>>: ".format(
+			add_cont,
+			find_cont,
+			exit_app))
+		
+		if choice not in ("1", "2", "3"):
+			print(wrong_input_data)
+			continue
+		
+		if choice == '1':
+			print("{}: ".format(add_cont))
+			add_contact()
+		elif choice == '2':
+			if len(contacts) == 0:
+				print("Список контактов пуст. Поиск невозможен!")
+				continue
+			lst_name_to_search_for = input("{}: ".format(find_cont))
+			find_contact(None, lst_name_to_search_for)
+		elif choice == '3':
+			print("Всего хорошего!")
+			break
+
+
+# contacts = {('Иван', 'Сидоров'): 888, ('Алиса', 'Петрова'): 999}
+contacts = {}
+make_choice()
+
+****************************************
+Скрипты, расположенные в папке Module20\07_my_zip:
+
+# Задача 7. Своя функция zip
+# Что нужно сделать
+# В самом конце собеседования вас неожиданно спросили: «Расскажите, что делает функция zip».
+# Чтобы произвести впечатление, вы решили не только рассказать про неё, но и написать её аналог.
+#
+# Даны строка и кортеж из чисел. Напишите программу, которая создаёт генератор из пар кортежей «символ — число».
+# Затем выведите на экран сам генератор и кортежи.
+#
+# Пример:
+# Строка: abcd
+# Кортеж чисел: (10, 20, 30, 40)
+#
+# Результат:
+# <generator object <genexpr> at 0x00000204A4234048>
+# ('a', 10)
+# ('b', 20)
+# ('c', 30)
+# ('d', 40)
+# Дополнительно: создайте полный аналог функции zip — сделайте так, чтобы программа работала
+# с любыми итерируемыми типами данных.
+
+def my_zip(coll_1, coll_2):
+	return ((coll_1[i], coll_2[i]) for i in range(min(len(coll_1), len(coll_2))))
+
+
+def print_list(lst):
+	for _, item in enumerate(lst):
+		print(item)
+
+
+# тестирование работы программы
+test_string_1 = 'abcd'
+test_tuple_1 = (10, 20, 30, 40)
+print('\nРабота аналога функции zip():')
+print(my_zip(test_string_1, test_tuple_1))
+print_list(my_zip(test_string_1, test_tuple_1))
+
+
+****************************************
+Скрипты, расположенные в папке Module21\01_challenge_2:
+
+# Написать функцию, которая выводит все числа от 1 до num без использования циклов.
+# Пример работы программы:
+#
+# Введите num: 10
+# 1
+# 2
+# 3
+# 4
+# 5
+# 6
+# 7
+# 8
+# 9
+# 10
+
+# функция выводит все числа от 1 до num без использования циклов (с использованием рекурсии)
+def print_numbers(num):
+    if num == 1:
+        print(1)
+    else:
+        print_numbers(num - 1)
+        print(num)
+
+
+number = int(input("Введите num: "))
+print_numbers(number)
+
+****************************************
+Скрипты, расположенные в папке Module21\02_search_element_2:
+
+# Пользователь вводит искомый ключ. Если он хочет, то может ввести максимальную глубину — уровень,
+# до которого будет просматриваться структура.
+#
+# Напишите функцию, которая находит заданный пользователем ключ в словаре и выдаёт значение этого ключа на экран.
+# По умолчанию уровень не задан. В качестве примера можно использовать такой словарь (см. ниже):
+#
+# Пример 1:
+# Введите искомый ключ: head
+# Хотите ввести максимальную глубину? Y/N: n
+# Значение ключа: {'title': 'Мой сайт'}
+
+# Пример 2:
+# Введите искомый ключ: head
+# Хотите ввести максимальную глубину? Y/N: y
+# Введите максимальную глубину: 1
+# Значение ключа: None
+
+
+def find_value(key, dictionary, max_dep=1):
+    # проверка наличия ключа в текущем уровне словаря
+    if key in dictionary:
+        return dictionary[key]
+    else:
+        # если ключа нет в текущем словаре, проверяем все его значения (если позволяет параметр max_dep)
+        if max_dep > 1:
+            for val in dictionary.values():
+                # Если значение - словарь, рекурсивно вызываем функцию со сниженным уровнем вложенности
+                if isinstance(val, dict):
+                    # Рекурсивный вызов с уменьшенным уровнем вложенности
+                    result = find_value(key, val, max_dep - 1)
+                    if result is not None:
+                        return result
+
+
+site = {
+    'html': {
+        'head': {
+            'title': 'Мой сайт'
+        },
+        'body': {
+            'h2': 'Здесь будет мой заголовок',
+            'div': 'Тут, наверное, какой-то блок',
+            'p': 'А вот здесь новый абзац'
+        }
+    }
+}
+
+key_to_find = input('Введите искомый ключ: ')
+max_depth_sign = input('Хотите ввести максимальную глубину? Y/N: ')
+if max_depth_sign.lower() == 'y':
+    max_depth = int(input('Введите максимальную глубину: '))
+else:
+    # пусть максимальная глубина поиска будет заведомо недостижимым в рамках конкретной задачи значением
+    # (в данном случае, например, 1'000'000)
+    max_depth = 1000000
+    
+value = find_value(key_to_find, site, max_depth)
+print("Значение искомого ключа:", value if value is not None else "ключ не найден")
+
+****************************************
+Скрипты, расположенные в папке Module21\03_deep_copy:
+
+import copy
+# import pprint
+
+
+# функция принимает ключ и значение словаря, находит в значении ключа определенную подстроку и заменяет его на заданную
+def replace_value(key_to_change, val_to_change: str, new_val: str, site_struct: dict):
+    if key_to_change in site_struct:
+        site_struct[key_to_change] = site_struct[key_to_change].replace(val_to_change, new_val)
+    else:
+        for val in site_struct.values():
+            if isinstance(val, dict):
+                replace_value(key_to_change, val_to_change, new_val, val)
+
+
+
+def get_product_name():
+    prod_name = input('\nВведите название продукта для нового сайта: ')
+    return prod_name
+
+
+def copy_site(site_templ):
+    return copy.deepcopy(site_templ)
+
+
+def create_new_site(keys_to_modify, site_templ):
+    # создаем шаблон нового сайта путем глубокого копирования словаря-шаблона
+    new_site = copy_site(site_templ)
+    for i_key, i_val, new_val in keys_to_modify:
+        replace_value(i_key, i_val, new_val, new_site)
+    return new_site
+
+
+# функция для печати словаря в человекоудобном виде (многострочном, с отступами)
+def print_dict(dictionary, indent=0):
+    for i_key, i_val in dictionary.items():
+        print(' ' * indent, end='')
+        print(f"'{i_key}': ", end='')
+        if isinstance(i_val, dict):
+            print('{')
+            print_dict(i_val, indent + 4)
+            print(' ' * indent, end='')
+            print('}')
+        else:
+            print(f"'{i_val}'")
+
+
+# словарь-шаблон для создания новых сайтов
+site_template = {
+    'html': {
+        'head': {
+            'title': 'Куплю/продам телефон недорого'
+        },
+        'body': {
+            'h2': 'У нас самая низкая цена на iphone',
+            'div': 'Купить',
+            'p': 'продать'
+        }
+    }
+}
+
+sites_num = int(input('Сколько сайтов: '))
+# новые сайты поместим в словарь сайтов, ключами которого будут названия продуктов, а значениями - словари новых сайтов
+sites_dict = {}
+for i in range(sites_num):
+    product_name = get_product_name()
+    
+    # Ключи и значения, которые необходимо заменить в словаре-шаблоне
+    keys_to_change = [
+        ('title', 'телефон', product_name),
+        ('h2', 'iphone', product_name)
+    ]
+    
+    # создаем словарь нового сайта
+    next_site = create_new_site(keys_to_change, site_template)
+    
+    # добавляем новый сайт в словарь сайтов
+    sites_dict[product_name] = next_site
+    
+    # после добавления нового сайта в словарь сайтов, печатаем все активные сайты
+    print('\nСписок активных сайтов:')
+    for ind, (i_prod, i_site) in enumerate(sites_dict.items()):
+        print(f'{ind + 1}) Сайт для {i_prod}: ')
+        print('site = {')
+        print_dict(i_site, 4)
+        print('}')
+        # pprint.pprint(i_site)
+
+****************************************
+Скрипты, расположенные в папке Module21\04_advanced_sum:
+
+def summ(*args):
+    total = 0
+    for i_arg in args:
+        if isinstance(i_arg, list):
+            total += summ(*i_arg)
+        else:
+            total += i_arg
+    return total
+
+
+# print(summ([[1, 2, [3]], [1], 3]))  # 10
+# print(summ([[1, 2, [3]], [1, [2, 3]], 3]))  # 15
+# print(summ(1, 2, 3, 4, 5))  # 15
+
+****************************************
+Скрипты, расположенные в папке Module21\05_list_of_lists_2:
+
+def func(lst: list) -> list:
+    """
+    Функция принимает на вход список списков и чисел и возвращает список чисел,
+    собранных из чисел списка и чисел вложенных списков
+    :param lst:
+    :return: list
+    """
+    result = []
+    for i_num in lst:
+        if isinstance(i_num, list):
+            result.extend(func(i_num))
+        else:
+            result.append(i_num)
+    return result
+
+
+def func_1(lst: list) -> list:
+    res = []
+    [res.extend(func_1(i_num))
+     if isinstance(i_num, list)
+     else res.append(i_num)
+     for i_num in lst]
+    return res
+
+
+# Пример использования:
+nice_list_1 = [1, 2, [3, 4], [[5, 6, 7], [8, 9, 10]], [[11, 12, 13], [14, 15], [16, 17, 18]]]
+nice_list_2 = [1, 2, [3, 4], [[5, 6, 7], [8, 9, 10]], [[11, [12, [13]]], [14, 15], [16, 17, 18]]]
+
+new_list_3 = func(nice_list_1)
+print(new_list_3)
+
+new_list_4 = func(nice_list_2)
+print(new_list_4)
+
+new_list_3 = func_1(nice_list_1)
+print(new_list_3)
+
+new_list_4 = func_1(nice_list_2)
+print(new_list_4)
+
+****************************************
+Скрипты, расположенные в папке Module21\06_quick_sort:
+
+def quick_sort(arr: list) -> list:
+    """
+    Быстрая сортировка по алгоритму Хоара
+    :param arr:
+    :return:
+    """
+    if len(arr) <= 1:
+        return arr
+    else:
+        splitted = split_array(arr, arr[-1])
+        return quick_sort(splitted[0]) + splitted[1] + quick_sort(splitted[2])
+
+
+def split_array(arr: list, pivot_elem: int) -> tuple:
+    """
+    Разбивает массив arr на три части: с элементами меньше (less), равными (middle) и большими (greater),
+    чем опорный элемент pivot_elem
+    :param arr:
+    :param pivot_elem:
+    :return: tuple (less, middle, greater)
+    """
+    less, middle, greater = (
+        [x for x in arr if x < pivot_elem],
+        [x for x in arr if x == pivot_elem],
+        [x for x in arr if x > pivot_elem]
+    )
+    return less, middle, greater
+
+
+# Пример использования:
+array = [3, 6, 8, 10, 1, 2, 1]
+sorted_arr = quick_sort(array)
+print(sorted_arr)
+
+****************************************
