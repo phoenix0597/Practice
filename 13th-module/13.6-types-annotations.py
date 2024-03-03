@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 
+
 class Person:
     def __init__(self, name: str, age: int, friends: list) -> None:
         self.__name = name
