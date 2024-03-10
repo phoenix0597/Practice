@@ -20,6 +20,10 @@ def say_bye(name: str) -> str:
     return "Bye, {name}!".format(name=name)
 
 
-print(PLUGINS)
+for name, func in PLUGINS.items():
+    print("{name} - {func}".format(name=name, func=func))
 
-print(say_hello("John"))
+
+# print(PLUGINS)
+#
+# print(say_hello("John"))

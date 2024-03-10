@@ -7,18 +7,31 @@
 # переданной функции func и выдаёт ответ на экран.
 #
 # Проверьте работу таймера на какой-нибудь «тяжеловесной» функции.
+import functools
 import time
+from typing import Callable, Any
 
 
-def timer(func):
-    start = time.time()
-    func()
-    end = time.time()
-    return f"Функция {func.__name__} выполнялась {end - start} секунд"
+def timer(func: Callable) -> Callable:
+    """Декоратор-таймер для подсчета времени выполнения функции."""
+    
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
+        start = time.time()
+        func()
+        end = time.time()
+        return f"Функция {func.__name__} выполнялась {end - start} секунд"
+    
+    return wrapper
 
 
-def hard_func():
+@timer
+def hard_func() -> list:
+    """Функция, возвращающая список выражений чисел в заданном диапазоне."""
     return [x ** 2 ** x for x in range(22)]
 
 
-print(timer(hard_func))
+print(hard_func)
+
+print(hard_func.__doc__)
+print(hard_func.__name__)
