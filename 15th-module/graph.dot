@@ -1,0 +1,10 @@
+strict graph  {
+A;
+B;
+C;
+D;
+A -- B;
+A -- D;
+B -- C;
+C -- D;
+}
