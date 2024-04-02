@@ -1,9 +1,11 @@
 from typing import Callable
+from functools import wraps
 
 
 def do_twice(func: Callable) -> Callable:
     """Декоратор, который вызывает функцию func дважды."""
     
+    @wraps(func)
     def wrapped(*args, **kwargs):
         func(*args, **kwargs)
         func(*args, **kwargs)
@@ -17,3 +19,4 @@ def greeting(name: str) -> None:
 
 
 greeting("John")
+print(greeting.__name__)
