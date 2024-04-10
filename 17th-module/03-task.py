@@ -1,41 +1,32 @@
-# Задача 3. Палиндром: возвращение
-# Что нужно сделать.
-# Есть множество встроенных и внешних библиотек для работы с данными в Python. С некоторыми из них вы уже работали.
-# Например, с модулем collections, когда использовали специальный класс OrderedDict,
-# с помощью которого делали упорядоченный словарь. В этой библиотеке есть и другие возможности, но их немного.
-# Официальная документация: collections — Container datatypes.
-#
-# Используя модуль collections, реализуйте функцию can_be_poly, которая принимает на вход строку и проверяет,
-# можно ли получить из неё палиндром.
-#
-# Пример кода:
-#
-# print(can_be_poly('abcba'))
-# print(can_be_poly('abbbc'))
-# Результат:
-# True
-# False
 from collections import Counter
 from typing import Dict
 
 
-def can_be_poly(string: str) -> bool:
+def can_be_poly(string_to_check: str) -> bool:
     """
-    Проверяет, можно ли получить палиндром из заданной строки.
+    Проверяет, может ли строка быть перестроена в палиндром.
     Args:
-        string (str): Входная строка.
+        string_to_check (str): Исходная строка.
     Returns:
-        bool: True, если из строки можно получить палиндром, False в противном случае.
+        bool: True, если из строки можно сформировать палиндром, иначе False.
+
+    Примеры использования:
+    >>> can_be_poly('abcba')
+    True
+    >>> can_be_poly('abbbc')
+    False
     """
-    # Создаем словарь, где ключи - символы, а значения - их количество
-    char_counts: Dict[str, int] = Counter(string)
+    # Подсчет количества каждого символа в строке
+    char_count: Dict[str, int] = Counter(string_to_check)
     
-    # Используем лямбда-функцию для проверки, что в словаре не более одного символа с нечетным количеством
-    is_palindrome_possible: bool = sum(1 for count in char_counts.values() if count % 2 != 0) <= 1
+    # Подсчет количества символов, которые встречаются нечетное количество раз
+    # Для создания палиндрома можно допустить не более одного символа с нечетным количеством
+    odd_count: int = sum(map(lambda x: x % 2 == 1, char_count.values()))
     
-    return is_palindrome_possible
+    return odd_count <= 1
 
 
-# Примеры использования
-print(can_be_poly('abcba'))  # True
-print(can_be_poly('abbbc'))  # False
+# Тестирование функции
+if __name__ == "__main__":
+    print(can_be_poly('abcba'))  # Должно вывести: True
+    print(can_be_poly('abbbc'))  # Должно вывести: False
