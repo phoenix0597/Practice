@@ -39,14 +39,15 @@ def get_h3_tags(url):
     return h3_texts
 
 
-# URL веб-страницы
-web_page_url = 'https://www.columbia.edu/~fdc/sample.html'
-
-# Получить список тегов h3 с указанной веб-страницы
-h3_headers_list = get_h3_tags(web_page_url)
-
-# Вывести список тегов h3
-print(h3_headers_list)
+if __name__ == '__main__':
+    # URL веб-страницы
+    web_page_url = 'https://www.columbia.edu/~fdc/sample.html'
+    
+    # Получить список тегов h3 с указанной веб-страницы
+    h3_headers_list = get_h3_tags(web_page_url)
+    
+    # Вывести список тегов h3
+    print(h3_headers_list)
 
 
 # print('\n'.join(h3_headers_list))

@@ -39,8 +39,9 @@ def validate_phone_numbers(phone_numbers: List[str]) -> None:
             print(f"{i}-й номер: не подходит")
 
 
-# Пример списка телефонных номеров
-phone_numbers_example = ['9999999999', '999999-999', '99999x9999']
-
-# Запуск программы для проверки списка
-validate_phone_numbers(phone_numbers_example)
+if __name__ == '__main__':
+    # Пример списка телефонных номеров
+    phone_numbers_example = ['9999999999', '999999-999', '99999x9999']
+    
+    # Запуск программы для проверки списка
+    validate_phone_numbers(phone_numbers_example)
