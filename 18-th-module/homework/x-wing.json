@@ -1,0 +1,49 @@
+{
+    "name": "X-wing",
+    "model": "T-65 X-wing",
+    "manufacturer": "Incom Corporation",
+    "cost_in_credits": "149999",
+    "length": "12.5",
+    "max_atmosphering_speed": "1050",
+    "crew": "1",
+    "passengers": "0",
+    "cargo_capacity": "110",
+    "consumables": "1 week",
+    "hyperdrive_rating": "1.0",
+    "MGLT": "100",
+    "starship_class": "Starfighter",
+    "pilots": [
+        {
+            "name": "Luke Skywalker",
+            "height": "172",
+            "mass": "77",
+            "homeworld": "https://swapi.dev/api/planets/1/"
+        },
+        {
+            "name": "Biggs Darklighter",
+            "height": "183",
+            "mass": "84",
+            "homeworld": "https://swapi.dev/api/planets/1/"
+        },
+        {
+            "name": "Wedge Antilles",
+            "height": "170",
+            "mass": "77",
+            "homeworld": "https://swapi.dev/api/planets/22/"
+        },
+        {
+            "name": "Jek Tono Porkins",
+            "height": "180",
+            "mass": "110",
+            "homeworld": "https://swapi.dev/api/planets/26/"
+        }
+    ],
+    "films": [
+        "https://swapi.dev/api/films/1/",
+        "https://swapi.dev/api/films/2/",
+        "https://swapi.dev/api/films/3/"
+    ],
+    "created": "2014-12-12T11:19:05.340000Z",
+    "edited": "2014-12-20T21:23:49.886000Z",
+    "url": "https://swapi.dev/api/starships/12/"
+}
