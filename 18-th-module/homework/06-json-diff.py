@@ -82,7 +82,6 @@ from typing import List, Dict, Any
 def load_json(filename: str) -> Dict[str, Any]:
     """
     Загружает данные из JSON-файла.
-
     :param filename: Имя файла для загрузки.
     :return: Словарь с данными из JSON.
     """
@@ -113,7 +112,6 @@ def find_differences(old_data: Dict[str, Any], new_data: Dict[str, Any], diff_li
 def write_to_json(data: Dict[str, Any], filename: str) -> None:
     """
     Записывает данные в JSON-файл.
-
     :param data: Словарь с данными для записи.
     :param filename: Имя целевого файла.
     """
