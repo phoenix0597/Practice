@@ -1,0 +1,5 @@
+[
+    {"command": "start", "description": "Запустить бота"},
+    {"command": "menu", "description": "Меню команд"},
+    {"command": "help", "description": "Помощь"}
+]
